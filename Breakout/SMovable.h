@@ -9,7 +9,7 @@
 */
 class SMovable : public Square
 {
-	private:
+	protected:
 
 		int acceleration = 0;
 		int initial_position_x = 0;
