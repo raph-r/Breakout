@@ -101,14 +101,5 @@ class SMovable : public Square
 		 * Reverte todos os atributos para os valores definidos no momento da criacao do objeto
 		*/
 		virtual void reset();
-
-		/**
-		 * <EN>
-		 * Moves the object. Pure virtual method to be implemented. 
-		 *
-		 * <PT-Br>
-		 * Movimenta o objeto. Metodo pure virtual para ser implementado. 
-		*/
-		virtual void move() = 0;
 };
 
