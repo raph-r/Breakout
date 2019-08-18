@@ -1,6 +1,7 @@
 #include "ATimer.h"
 #include "ADisplay.h"
 #include "AEventQueue.h"
+#include "ATTFFont.h"
 #include "allegro5/allegro_primitives.h"
 #include "Square.h"
 #include "Util.h"
@@ -15,6 +16,9 @@ int main(int argn, char** argv)
 	Validate::object_was_initialized(al_init(), "Allegro");
 	Validate::object_was_initialized(al_install_keyboard(), "Keyboard");
 	Validate::object_was_initialized(al_init_primitives_addon(), "Primitives Addon");
+	Validate::object_was_initialized(al_init_font_addon(), "Font Addon");
+	Validate::object_was_initialized(al_init_ttf_addon(), "Font TTF Addon");
+	std::shared_ptr<ATTFFont> SPFont_36 = std::make_shared<ATTFFont>("Oswald-Medium.ttf", 36);
 
 	// Initialize the object of Allegro that had been encapsulated
 	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 14);
@@ -31,9 +35,9 @@ int main(int argn, char** argv)
 	std::shared_ptr<ALLEGRO_COLOR> SPACWhite = std::make_shared<ALLEGRO_COLOR>(al_map_rgba_f(1, 1, 1, 1));
 	std::shared_ptr<ALLEGRO_COLOR> SPACDarkGrey = std::make_shared<ALLEGRO_COLOR>(al_map_rgba_f(0.66, 0.66, 0.66, 1));
 
-	std::unique_ptr<Square> UPSUpperLimit = std::make_unique<Square>(0, 0, Constant::SCREEN_WIDTH, Constant::BLOCK_WIDTH, SPACDarkGrey);
-	std::unique_ptr<Square> UPSLeftLimit = std::make_unique<Square>(0, 0, Constant::BLOCK_WIDTH, Constant::SCREEN_HEIGHT, SPACDarkGrey);
-	std::unique_ptr<Square> UPSRightLimit = std::make_unique<Square>(Constant::SCREEN_WIDTH - Constant::BLOCK_WIDTH, 0, Constant::BLOCK_WIDTH, Constant::SCREEN_HEIGHT, SPACDarkGrey);
+	std::unique_ptr<Square> UPSUpperLimit = std::make_unique<Square>(Constant::UPPER_LIMIT_POSITION_X, Constant::UPPER_LIMIT_POSITION_Y, Constant::UPPER_LIMIT_WIDTH, Constant::UPPER_LIMIT_HEIGHT, SPACDarkGrey);
+	std::unique_ptr<Square> UPSLeftLimit = std::make_unique<Square>(Constant::LEFT_LIMIT_POSITION_X, Constant::LEFT_LIMIT_POSITION_Y, Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT, Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT, SPACDarkGrey);
+	std::unique_ptr<Square> UPSRightLimit = std::make_unique<Square>(Constant::RIGHT_LIMIT_POSITION_X, Constant::RIGHT_LIMIT_POSITION_Y, Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT, Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT, SPACDarkGrey);
 	std::unique_ptr<SMPlayer> UPSPlayer = std::make_unique<SMPlayer>(SPACWhite);
 
 	//captures the current event
@@ -84,6 +88,24 @@ int main(int argn, char** argv)
 			UPSUpperLimit->draw();
 			UPSLeftLimit->draw();
 			UPSRightLimit->draw();
+			al_draw_textf(
+				SPFont_36->getFont(),
+				*SPACDarkGrey,
+				Constant::HALF_SCREEN_WIDTH / 2,
+				Constant::BLOCK_WIDTH - (al_get_font_line_height(SPFont_36->getFont()) / 2),
+				ALLEGRO_ALIGN_CENTER,
+				"%u",
+				UPSPlayer->get_score()
+			);
+			al_draw_textf(
+				SPFont_36->getFont(),
+				*SPACDarkGrey,
+				Constant::HALF_SCREEN_WIDTH + (Constant::HALF_SCREEN_WIDTH / 2),
+				Constant::BLOCK_WIDTH - (al_get_font_line_height(SPFont_36->getFont()) / 2),
+				ALLEGRO_ALIGN_CENTER,
+				"%u",
+				UPSPlayer->get_remaining_balls()
+			);
 			UPSPlayer->draw();
 			al_flip_display();
 		}

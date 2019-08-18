@@ -19,3 +19,14 @@ const unsigned int Constant::AMOUNT_OF_BLOCK_ALIGN_VERTICALLY = 6;
 const unsigned int Constant::AMOUNT_OF_BLOCK_ALIGN_HORIZONTALLY = 18;
 const unsigned int Constant::BLOCK_WIDTH = 24;
 const unsigned int Constant::BLOCK_HEIGHT = 15;
+
+const unsigned int Constant::UPPER_LIMIT_POSITION_X = Constant::BLOCK_WIDTH;
+const unsigned int Constant::UPPER_LIMIT_POSITION_Y = Constant::BLOCK_WIDTH * 2;
+const unsigned int Constant::UPPER_LIMIT_WIDTH = Constant::SCREEN_WIDTH - (Constant::BLOCK_WIDTH * 2);
+const unsigned int Constant::UPPER_LIMIT_HEIGHT = Constant::BLOCK_WIDTH;
+const unsigned int Constant::LEFT_LIMIT_POSITION_X = 0;
+const unsigned int Constant::LEFT_LIMIT_POSITION_Y = Constant::UPPER_LIMIT_POSITION_Y;
+const unsigned int Constant::RIGHT_LIMIT_POSITION_X = Constant::SCREEN_WIDTH - Constant::BLOCK_WIDTH;
+const unsigned int Constant::RIGHT_LIMIT_POSITION_Y = Constant::UPPER_LIMIT_POSITION_Y;
+const unsigned int Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT = Constant::SCREEN_HEIGHT - Constant::UPPER_LIMIT_POSITION_Y;
+const unsigned int Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT = Constant::UPPER_LIMIT_POSITION_X;

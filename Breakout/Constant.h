@@ -29,5 +29,16 @@ class Constant
 		static const unsigned int AMOUNT_OF_BLOCK_ALIGN_HORIZONTALLY;
 		static const unsigned int BLOCK_WIDTH;
 		static const unsigned int BLOCK_HEIGHT;
+
+		static const unsigned int UPPER_LIMIT_POSITION_X;
+		static const unsigned int UPPER_LIMIT_POSITION_Y;
+		static const unsigned int UPPER_LIMIT_WIDTH;
+		static const unsigned int UPPER_LIMIT_HEIGHT;
+		static const unsigned int LEFT_LIMIT_POSITION_X;
+		static const unsigned int LEFT_LIMIT_POSITION_Y;
+		static const unsigned int RIGHT_LIMIT_POSITION_X;
+		static const unsigned int RIGHT_LIMIT_POSITION_Y;
+		static const unsigned int HEIGHT_OF_RIGHT_AND_LEFT_LIMIT;
+		static const unsigned int WIDTH_OF_RIGHT_AND_LEFT_LIMIT;
 };
 
