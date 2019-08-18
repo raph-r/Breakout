@@ -33,10 +33,12 @@ class SMPlayer : public SMovable
 		/**
 		 * <EN>
 		 * Moves SMPlayer
+		 * @param[out] key - Array of flags indicating the state of each key
 		 *
 		 * <PT-Br>
 		 * Movimenta SMPlayer
+		 * @param[out] key - Array de bandeiras que identificam cada tecla
 		*/
-		void move();
+		void move(const unsigned char * key, const std::unique_ptr<Square> & left_limit, const std::unique_ptr<Square> & right_limit);
 };
 

@@ -57,6 +57,8 @@ int main(int argn, char** argv)
 					continue_to_play = false;
 				}
 
+				UPSPlayer->move(key, UPSLeftLimit, UPSRightLimit);
+
 				// Reset array of keys
 				Util::reset_array_of_keys(key);
 
