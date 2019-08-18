@@ -31,7 +31,7 @@ int Square::get_line_right() const
 	return this->top_left_x + this->width;
 }
 
-bool Square::collided_on_top_of_other_square(const Square const * other_square)
+bool Square::collided_on_top_of_other_square(const std::unique_ptr<Square> & other_square)
 {
 	if (this->top_left_y + this->height >= other_square->top_left_y)
 	{
@@ -40,7 +40,7 @@ bool Square::collided_on_top_of_other_square(const Square const * other_square)
 	return false;
 }
 
-bool Square::collided_on_botton_of_other_square(const Square const * other_square)
+bool Square::collided_on_botton_of_other_square(const std::unique_ptr<Square> & other_square)
 {
 	if (this->top_left_y <= other_square->top_left_y + other_square->height)
 	{
@@ -49,7 +49,7 @@ bool Square::collided_on_botton_of_other_square(const Square const * other_squar
 	return false;
 }
 
-bool Square::collided_on_left_of_other_square(const Square const * other_square)
+bool Square::collided_on_left_of_other_square(const std::unique_ptr<Square> & other_square)
 {
 	if (this->top_left_x + this->width >= other_square->top_left_x)
 	{
@@ -58,7 +58,7 @@ bool Square::collided_on_left_of_other_square(const Square const * other_square)
 	return false;
 }
 
-bool Square::collided_on_right_of_other_square(const Square const * other_square)
+bool Square::collided_on_right_of_other_square(const std::unique_ptr<Square> & other_square)
 {
 	if (this->top_left_x <= other_square->top_left_x + other_square->width)
 	{

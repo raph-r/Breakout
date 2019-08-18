@@ -104,7 +104,7 @@ class Square
 		 * @param[in] other_square - Outro Square para verificar
 		 * @return True caso houve colisao. Caso contrario, False
 		*/
-		bool collided_on_top_of_other_square(const Square const * other_square);
+		bool collided_on_top_of_other_square(const std::unique_ptr<Square> & other_square);
 
 		/**
 		 * <EN>
@@ -117,7 +117,7 @@ class Square
 		 * @param[in] other_square - Outro Square para verificar
 		 * @return True caso houve colisao. Caso contrario, False
 		*/
-		bool collided_on_botton_of_other_square(const Square const * other_square);
+		bool collided_on_botton_of_other_square(const std::unique_ptr<Square> & other_square);
 
 		/**
 		 * <EN>
@@ -130,7 +130,7 @@ class Square
 		 * @param[in] other_square - Outro Square para verificar
 		 * @return True caso houve colisao. Caso contrario, False
 		*/
-		bool collided_on_left_of_other_square(const Square const * other_square);
+		bool collided_on_left_of_other_square(const std::unique_ptr<Square> & other_square);
 
 		/**
 		 * <EN>
@@ -143,7 +143,7 @@ class Square
 		 * @param[in] other_square - Outro Square para verificar
 		 * @return True caso houve colisao. Caso contrario, False
 		*/
-		bool collided_on_right_of_other_square(const Square const * other_square);
+		bool collided_on_right_of_other_square(const std::unique_ptr<Square> & other_square);
 
 		/**
 		 * <EN>
