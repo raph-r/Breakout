@@ -25,6 +25,15 @@ int main(int argn, char** argv)
 	al_register_event_source(UPAEventQueue->getEventQueue(), al_get_timer_event_source(UPATimer->getTimer()));
 	al_register_event_source(UPAEventQueue->getEventQueue(), al_get_display_event_source(UPADisplay->getDisplay()));
 
+	// color
+	std::shared_ptr<ALLEGRO_COLOR> SPACBlack = std::make_shared<ALLEGRO_COLOR>(al_map_rgba_f(0, 0, 0, 0));
+	std::shared_ptr<ALLEGRO_COLOR> SPACWhite = std::make_shared<ALLEGRO_COLOR>(al_map_rgba_f(1, 1, 1, 1));
+	std::shared_ptr<ALLEGRO_COLOR> SPACDarkGrey = std::make_shared<ALLEGRO_COLOR>(al_map_rgba_f(0.66, 0.66, 0.66, 1));
+
+	std::unique_ptr<Square> UPSUpperLimit = std::make_unique<Square>(0, 0, Constant::SCREEN_WIDTH, Constant::BLOCK_WIDTH, SPACDarkGrey);
+	std::unique_ptr<Square> UPSLeftLimit = std::make_unique<Square>(0, 0, Constant::BLOCK_WIDTH, Constant::SCREEN_HEIGHT, SPACDarkGrey);
+	std::unique_ptr<Square> UPSRightLimit = std::make_unique<Square>(Constant::SCREEN_WIDTH - Constant::BLOCK_WIDTH, 0, Constant::BLOCK_WIDTH, Constant::SCREEN_HEIGHT, SPACDarkGrey);
+
 	//captures the current event
 	ALLEGRO_EVENT event;
 	
@@ -67,7 +76,10 @@ int main(int argn, char** argv)
 		if (draw && al_is_event_queue_empty(UPAEventQueue->getEventQueue()))
 		{
 			draw = false;
-			//al_clear_to_color(color);
+			al_clear_to_color(*SPACBlack);
+			UPSUpperLimit->draw();
+			UPSLeftLimit->draw();
+			UPSRightLimit->draw();
 			al_flip_display();
 		}
 	}

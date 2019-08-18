@@ -18,6 +18,7 @@ class Square
 		int top_left_y = 0;
 		int width = 0;
 		int height = 0;
+		std::shared_ptr<ALLEGRO_COLOR> color = nullptr;
 
 	public:
 		/**
@@ -27,6 +28,7 @@ class Square
 		 * @param[in] top_left_y
 		 * @param[in] width
 		 * @param[in] height
+		 * @param[in] color
 		 *
 		 * <PT-Br>
 		 * Construtor da classe.
@@ -34,8 +36,9 @@ class Square
 		 * @param[in] top_left_y
 		 * @param[in] width
 		 * @param[in] height
+		 * @param[in] color
 		*/
-		Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height);
+		Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height, std::shared_ptr<ALLEGRO_COLOR> color);
 
 		/**
 		 * <EN>
@@ -144,12 +147,10 @@ class Square
 
 		/**
 		 * <EN>
-		 * Draw Snake
-		 * @param[in] color - Color that will be used to draw
+		 * Draw Square
 		 *
 		 * <PT-Br>
-		 * Desenha a Snake
-		 * @param[in] color - Cor que devera ser utilizada para desenhar
+		 * Desenha Square
 		*/
-		void draw(ALLEGRO_COLOR * color);
+		void draw();
 };

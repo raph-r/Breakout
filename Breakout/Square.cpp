@@ -1,11 +1,12 @@
 #include "Square.h"
 
-Square::Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height)
+Square::Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height, std::shared_ptr<ALLEGRO_COLOR> color)
 {
 	this->top_left_x = top_left_x;
 	this->top_left_y = top_left_y;
 	this->width = width;
 	this->height = height;
+	this->color = std::move(color);
 }
 
 Square::~Square(){}
@@ -66,7 +67,7 @@ bool Square::collided_on_right_of_other_square(const Square const * other_square
 	return false;
 }
 
-void Square::draw(ALLEGRO_COLOR * color)
+void Square::draw()
 {
-	al_draw_filled_rectangle(this->top_left_x, this->top_left_y, (this->top_left_x + this->width), (this->top_left_y + this->height), *color);
+	al_draw_filled_rectangle(this->top_left_x, this->top_left_y, (this->top_left_x + this->width), (this->top_left_y + this->height), *this->color);
 }
