@@ -37,6 +37,6 @@ class SMPlayer : public SMovable
 		 * <PT-Br>
 		 * Movimenta SMPlayer
 		*/
-		void move() override;
+		void move();
 };
 
