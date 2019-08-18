@@ -1,12 +1,11 @@
 #include "Square.h"
 
-Square::Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name)
+Square::Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height)
 {
 	this->top_left_x = top_left_x;
 	this->top_left_y = top_left_y;
 	this->width = width;
 	this->height = height;
-	this->name = name;
 }
 
 Square::~Square(){}
@@ -31,29 +30,43 @@ int Square::get_line_right() const
 	return this->top_left_x + this->width;
 }
 
-bool Square::is_overlapped(const Square const * object)
+bool Square::collided_on_top_of_other_square(const Square const * other_square)
 {
-	if (this->get_line_left() == object->get_line_left()
-		&& this->get_line_top() == object->get_line_top()
-		&& this->get_line_right() == object->get_line_right()
-		&& this->get_line_botton() == object->get_line_botton())
+	if (this->top_left_y + this->height >= other_square->top_left_y)
 	{
-		return true;
+		return Util::is_overlap_of_two_straight_lines(this->top_left_x, this->top_left_x + this->width, other_square->top_left_x, other_square->top_left_x + other_square->width);
 	}
 	return false;
 }
 
-const char * Square::get_name()
+bool Square::collided_on_botton_of_other_square(const Square const * other_square)
 {
-	return this->name;
+	if (this->top_left_y <= other_square->top_left_y + other_square->height)
+	{
+		return Util::is_overlap_of_two_straight_lines(this->top_left_x, this->top_left_x + this->width, other_square->top_left_x, other_square->top_left_x + other_square->width);
+	}
+	return false;
 }
 
-void Square::add_top_left_x(const int & value)
+bool Square::collided_on_left_of_other_square(const Square const * other_square)
 {
-	this->top_left_x += value;
+	if (this->top_left_x + this->width >= other_square->top_left_x)
+	{
+		return Util::is_overlap_of_two_straight_lines(this->top_left_y, this->top_left_y + this->height, other_square->top_left_y, other_square->top_left_y + other_square->height);
+	}
+	return false;
 }
 
-void Square::add_top_left_y(const int & value)
+bool Square::collided_on_right_of_other_square(const Square const * other_square)
 {
-	this->top_left_y += value;
+	if (this->top_left_x <= other_square->top_left_x + other_square->width)
+	{
+		return Util::is_overlap_of_two_straight_lines(this->top_left_y, this->top_left_y + this->height, other_square->top_left_y, other_square->top_left_y + other_square->height);
+	}
+	return false;
+}
+
+void Square::draw(ALLEGRO_COLOR * color)
+{
+	al_draw_filled_rectangle(this->top_left_x, this->top_left_y, (this->top_left_x + this->width), (this->top_left_y + this->height), *color);
 }

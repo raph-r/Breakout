@@ -1,5 +1,8 @@
 #pragma once
 #include <memory>
+#include "allegro5/allegro.h"
+#include "allegro5/allegro_primitives.h"
+#include "Util.h"
 
 /**
  * <EN>
@@ -15,7 +18,6 @@ class Square
 		int top_left_y = 0;
 		int width = 0;
 		int height = 0;
-		const char * name;
 
 	public:
 		/**
@@ -25,7 +27,6 @@ class Square
 		 * @param[in] top_left_y
 		 * @param[in] width
 		 * @param[in] height
-		 * @param[in] name
 		 *
 		 * <PT-Br>
 		 * Construtor da classe.
@@ -33,9 +34,8 @@ class Square
 		 * @param[in] top_left_y
 		 * @param[in] width
 		 * @param[in] height
-		 * @param[in] name
 		*/
-		Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height, const char * name);
+		Square(const int& top_left_x, const int& top_left_y, const int& width, const int& height);
 
 		/**
 		 * <EN>
@@ -92,47 +92,64 @@ class Square
 
 		/**
 		 * <EN>
-		 * Verify if the current Square its been overlapped by 'other_square'
-		 * @param[in] other_square - Square that will be used to compare
-		 * @return True if the Squares are overlapped. Otherwise false.
+		 * Verify if the botton of this object collided with top of 'other_square'
+		 * @param[in] other_square - Other Square to verify
+		 * @return True, if has collided. Otherwise, False
 		 *
 		 * <PT-Br>
-		 * Verifica se este Square esta sendo sobreposto por 'other_square'
-		 * @param[in] other_square - Square que sera utilizado para comparacao
-		 * @return True se os objetos estao sobrepostos. Caso contrario, false.
+		 * Verifica se houve colisao entre a parte inferior deste objeto com a parte superior de other_square
+		 * @param[in] other_square - Outro Square para verificar
+		 * @return True caso houve colisao. Caso contrario, False
 		*/
-		bool is_overlapped(const Square const * other_square);
+		bool collided_on_top_of_other_square(const Square const * other_square);
 
 		/**
 		 * <EN>
-		 * Get the name of square
-		 * @return name of square
+		 * Verify if the top of this object collided with botton of 'other_square'
+		 * @param[in] other_square - Other Square to verify
+		 * @return True, if has collided. Otherwise, False
 		 *
 		 * <PT-Br>
-		 * Captura o nome do quadrado
-		 * @return nome do quadrado
+		 * Verifica se houve colisao entre a parte superior deste objeto com a parte inferior de other_square
+		 * @param[in] other_square - Outro Square para verificar
+		 * @return True caso houve colisao. Caso contrario, False
 		*/
-		const char * get_name();
+		bool collided_on_botton_of_other_square(const Square const * other_square);
 
 		/**
 		 * <EN>
-		 * Add value to Square::top_left_x
-		 * @param value - quantity to add
+		 * Verify if the right of this object collided with left of 'other_square'
+		 * @param[in] other_square - Other Square to verify
+		 * @return True, if has collided. Otherwise, False
 		 *
 		 * <PT-Br>
-		 * Adiciona value a Square::top_left_x
-		 * @param[in] value - quantidade para adicionar
+		 * Verifica se houve colisao entre a parte direita deste objeto com a parte esquerda de other_square
+		 * @param[in] other_square - Outro Square para verificar
+		 * @return True caso houve colisao. Caso contrario, False
 		*/
-		void add_top_left_x(const int& value);
+		bool collided_on_left_of_other_square(const Square const * other_square);
 
 		/**
 		 * <EN>
-		 * Add value to Square::top_left_y
-		 * @param value - quantity to add
+		 * Verify if the left of this object collided with right of 'other_square'
+		 * @param[in] other_square - Other Square to verify
+		 * @return True, if has collided. Otherwise, False
 		 *
 		 * <PT-Br>
-		 * Adiciona value a Square::top_left_y
-		 * @param[in] value - quantidade para adicionar
+		 * Verifica se houve colisao entre a parte esquerda deste objeto com a parte direta de other_square
+		 * @param[in] other_square - Outro Square para verificar
+		 * @return True caso houve colisao. Caso contrario, False
 		*/
-		void add_top_left_y(const int& value);
+		bool collided_on_right_of_other_square(const Square const * other_square);
+
+		/**
+		 * <EN>
+		 * Draw Snake
+		 * @param[in] color - Color that will be used to draw
+		 *
+		 * <PT-Br>
+		 * Desenha a Snake
+		 * @param[in] color - Cor que devera ser utilizada para desenhar
+		*/
+		void draw(ALLEGRO_COLOR * color);
 };
