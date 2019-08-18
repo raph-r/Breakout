@@ -156,6 +156,8 @@
     <ClCompile Include="ATTFFont.cpp" />
     <ClCompile Include="Constant.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SMovable.cpp" />
+    <ClCompile Include="SMPlayer.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="Validate.cpp" />
@@ -167,6 +169,8 @@
     <ClInclude Include="ATimer.h" />
     <ClInclude Include="ATTFFont.h" />
     <ClInclude Include="Constant.h" />
+    <ClInclude Include="SMovable.h" />
+    <ClInclude Include="SMPlayer.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Validate.h" />

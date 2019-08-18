@@ -4,6 +4,7 @@
 #include "allegro5/allegro_primitives.h"
 #include "Square.h"
 #include "Util.h"
+#include "SMPlayer.h"
 
 int main(int argn, char** argv)
 {
@@ -33,6 +34,7 @@ int main(int argn, char** argv)
 	std::unique_ptr<Square> UPSUpperLimit = std::make_unique<Square>(0, 0, Constant::SCREEN_WIDTH, Constant::BLOCK_WIDTH, SPACDarkGrey);
 	std::unique_ptr<Square> UPSLeftLimit = std::make_unique<Square>(0, 0, Constant::BLOCK_WIDTH, Constant::SCREEN_HEIGHT, SPACDarkGrey);
 	std::unique_ptr<Square> UPSRightLimit = std::make_unique<Square>(Constant::SCREEN_WIDTH - Constant::BLOCK_WIDTH, 0, Constant::BLOCK_WIDTH, Constant::SCREEN_HEIGHT, SPACDarkGrey);
+	std::unique_ptr<SMPlayer> UPSPlayer = std::make_unique<SMPlayer>(SPACWhite);
 
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -80,6 +82,7 @@ int main(int argn, char** argv)
 			UPSUpperLimit->draw();
 			UPSLeftLimit->draw();
 			UPSRightLimit->draw();
+			UPSPlayer->draw();
 			al_flip_display();
 		}
 	}

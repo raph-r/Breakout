@@ -16,6 +16,13 @@ class Constant
 		static const unsigned int HALF_SCREEN_HEIGHT;
 		static const unsigned int KEY_SEEN;
 		static const unsigned int KEY_RELEASED;
+		static const unsigned int GOAL_LINE;
+		static const unsigned int INITIAL_ACCELERATION;
+
+		static const unsigned int PLAYER_WIDTH;
+		static const unsigned int PLAYER_HEIGHT;
+		static const unsigned int PLAYER_POSITION_X;
+		static const unsigned int PLAYER_POSITION_Y;
 
 		static const unsigned int AMOUNT_OF_BLOCK_ALIGN_VERTICALLY;
 		static const unsigned int AMOUNT_OF_BLOCK_ALIGN_HORIZONTALLY;
