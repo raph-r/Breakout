@@ -18,6 +18,7 @@ class Constant
 		static const unsigned int KEY_RELEASED;
 		static const unsigned int GOAL_LINE;
 		static const unsigned int INITIAL_ACCELERATION;
+		static const unsigned int QUANTITY_OF_BALLS;
 
 		static const unsigned int PLAYER_WIDTH;
 		static const unsigned int PLAYER_HEIGHT;
