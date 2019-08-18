@@ -13,19 +13,6 @@ namespace Util
 {
 	/**
 	 * <EN>
-	 * Identify what key was pressed
-	 * @param[in] key - Array of flags indicating the state of each key
-	 * @return ALLEGRO_KEY_LEFT, ALLEGRO_KEY_RIGHT. Otherwise NULL
-	 *
-	 * <PT-Br>
-	 * Identifica a tecla que foi pressionada
-	 * @param[in] key - Array de bandeiras que identificam cada tecla
-	 * @return ALLEGRO_KEY_LEFT, ALLEGRO_KEY_RIGHT. Caso contrario NULL
-	*/
-	unsigned int identify_pressed_key(const unsigned char * key);
-
-	/**
-	 * <EN>
 	 * Reset array of flags indicating the state of each key
 	 * @param[out] key - Array of flags indicating the state of each key
 	 *
