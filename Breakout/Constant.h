@@ -16,7 +16,7 @@ class Constant
 		static const unsigned int HALF_SCREEN_HEIGHT;
 		static const unsigned int KEY_SEEN;
 		static const unsigned int KEY_RELEASED;
-		static const unsigned int GOAL_LINE;
+		static const unsigned int LOST_BALL_LINE;
 		static const unsigned int INITIAL_ACCELERATION;
 		static const unsigned int QUANTITY_OF_BALLS;
 
@@ -42,5 +42,10 @@ class Constant
 		static const unsigned int RIGHT_LIMIT_POSITION_Y;
 		static const unsigned int HEIGHT_OF_RIGHT_AND_LEFT_LIMIT;
 		static const unsigned int WIDTH_OF_RIGHT_AND_LEFT_LIMIT;
+
+		static const unsigned int BALL_INITIAL_POSITION_X;
+		static const unsigned int BALL_INITIAL_POSITION_Y;
+		static const unsigned int BALL_WIDTH;
+		static const unsigned int BALL_HEIGHT;
 };
 

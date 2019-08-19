@@ -4,6 +4,7 @@
 #include "ATTFFont.h"
 #include "allegro5/allegro_primitives.h"
 #include "Square.h"
+#include "SMBall.h"
 #include "Util.h"
 #include "SMPlayer.h"
 #include "BlockController.h"
@@ -25,7 +26,6 @@ int main(int argn, char** argv)
 	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 14);
 	std::unique_ptr<ADisplay> UPADisplay = std::make_unique<ADisplay>();
 	std::unique_ptr<AEventQueue> UPAEventQueue = std::make_unique<AEventQueue>();
-	BlockController Blocks;
 
 	// add source to event queue
 	al_register_event_source(UPAEventQueue->getEventQueue(), al_get_keyboard_event_source());
@@ -41,6 +41,8 @@ int main(int argn, char** argv)
 	std::unique_ptr<Square> UPSLeftLimit = std::make_unique<Square>(Constant::LEFT_LIMIT_POSITION_X, Constant::LEFT_LIMIT_POSITION_Y, Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT, Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT, SPACDarkGrey);
 	std::unique_ptr<Square> UPSRightLimit = std::make_unique<Square>(Constant::RIGHT_LIMIT_POSITION_X, Constant::RIGHT_LIMIT_POSITION_Y, Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT, Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT, SPACDarkGrey);
 	std::unique_ptr<SMPlayer> UPSPlayer = std::make_unique<SMPlayer>(SPACWhite);
+	std::unique_ptr<SMBall> UPSMBall = std::make_unique<SMBall>(SPACWhite);
+	std::unique_ptr <BlockController> UPBlockController = std::make_unique<BlockController>();
 
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -64,7 +66,26 @@ int main(int argn, char** argv)
 				}
 
 				UPSPlayer->move(key, UPSLeftLimit, UPSRightLimit);
+				UPSMBall->check_collision_with_limits(UPSUpperLimit, UPSLeftLimit, UPSRightLimit);
 
+				if (UPSMBall->is_ball_lost())
+				{
+					if (UPSPlayer->remove_a_remaining_ball())
+					{
+						UPSMBall->reset();
+						UPSPlayer->reset();
+					}
+					else
+					{
+						continue_to_play = false;
+					}
+				}
+				else
+				{
+					UPSMBall->check_collision_with_player(UPSPlayer, key);
+				}
+
+				UPSMBall->move();
 				// Reset array of keys
 				Util::reset_array_of_keys(key);
 
@@ -108,7 +129,8 @@ int main(int argn, char** argv)
 				"%u",
 				UPSPlayer->get_remaining_balls()
 			);
-			Blocks.draw_blocks();
+			UPSMBall->draw();
+			UPBlockController->draw_blocks();
 			UPSPlayer->draw();
 			al_flip_display();
 		}
