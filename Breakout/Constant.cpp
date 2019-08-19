@@ -17,11 +17,13 @@ const unsigned int Constant::PLAYER_POSITION_Y = Constant::GOAL_LINE - Constant:
 
 const unsigned int Constant::AMOUNT_OF_BLOCK_ALIGN_VERTICALLY = 6;
 const unsigned int Constant::AMOUNT_OF_BLOCK_ALIGN_HORIZONTALLY = 18;
-const unsigned int Constant::BLOCK_WIDTH = 24;
+const unsigned int Constant::BLOCK_WIDTH = 32;
 const unsigned int Constant::BLOCK_HEIGHT = 15;
+const unsigned int Constant::BLOCK_INITIAL_POSITION_X = Constant::BLOCK_WIDTH;
+const unsigned int Constant::BLOCK_INITIAL_POSITION_Y = Constant::BLOCK_WIDTH * 4;
 
 const unsigned int Constant::UPPER_LIMIT_POSITION_X = Constant::BLOCK_WIDTH;
-const unsigned int Constant::UPPER_LIMIT_POSITION_Y = Constant::BLOCK_WIDTH * 2;
+const unsigned int Constant::UPPER_LIMIT_POSITION_Y = Constant::BLOCK_WIDTH;
 const unsigned int Constant::UPPER_LIMIT_WIDTH = Constant::SCREEN_WIDTH - (Constant::BLOCK_WIDTH * 2);
 const unsigned int Constant::UPPER_LIMIT_HEIGHT = Constant::BLOCK_WIDTH;
 const unsigned int Constant::LEFT_LIMIT_POSITION_X = 0;
