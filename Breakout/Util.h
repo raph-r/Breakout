@@ -57,4 +57,30 @@ namespace Util
 	 * @return True caso houve sobreposicao. Caso contrario false
 	*/
 	bool is_overlap_of_two_straight_lines(const int & first_line_A, const int & first_line_B, const int & second_line_A, const int & second_line_B);
+
+	/**
+	 * <EN>
+	 * Identify the top left X(column) of the grid that has 'point'
+	 * @param[int] point - Point to identify
+	 * @return top left X of grid
+	 *
+	 * <PT-Br>
+	 * Identifica o ponto X(coluna) esquerdo superior do grid em que 'point' esta
+	 * @param[int] point - Ponto que deseja identificar
+	 * @return ponto X, esquerdo superior do grid
+	*/
+	int identify_grid_column_of_point(const int & point);
+
+	/**
+	 * <EN>
+	 * Identify the top left Y(line) of the grid that has 'point'
+	 * @param[int] point - Point to identify
+	 * @return top left Y of grid
+	 *
+	 * <PT-Br>
+	 * Identifica o ponto Y(linha) esquerdo superior do grid em que 'point' esta
+	 * @param[int] point - Ponto que deseja identificar
+	 * @return ponto Y, esquerdo superior do grid
+	*/
+	int identify_grid_line_of_point(const int & point);
 }
