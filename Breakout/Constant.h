@@ -27,8 +27,8 @@ class Constant
 
 		static const unsigned int AMOUNT_OF_BLOCK_ALIGN_VERTICALLY;
 		static const unsigned int AMOUNT_OF_BLOCK_ALIGN_HORIZONTALLY;
-		static const unsigned int BLOCK_WIDTH;
-		static const unsigned int BLOCK_HEIGHT;
+		static const unsigned int BLOCK_GRID_WIDTH;
+		static const unsigned int BLOCK_GRID_HEIGHT;
 		static const unsigned int BLOCK_INITIAL_POSITION_X;
 		static const unsigned int BLOCK_INITIAL_POSITION_Y;
 
