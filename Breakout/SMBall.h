@@ -14,6 +14,7 @@ class SMBall : public SMovable
 	private:
 		bool going_to_right = true;
 		bool going_to_down = true;
+		bool destroy_block = false;
 		int hits = 0;
 
 	public:
@@ -122,5 +123,27 @@ class SMBall : public SMovable
 		 * Reverte todos os atributos para os valores definidos no momento da criacao do objeto
 		*/
 		void reset();
+
+		/**
+		 * <EN>
+		 * Defines SMBall::destroy_block
+		 * @param[in] value - Value that will define the variable
+		 *
+		 * <PT-Br>
+		 * Define SMBall::destroy_block
+		 * @param[in] value - Valor que sera definido para a variavel
+		*/
+		void set_can_destroy_block(const bool & value);
+
+		/**
+		 * <EN>
+		 * Get the value of SMBall::destroy_block
+		 * @return True, if SMBall can destroy blocks. Otherwise false
+		 *
+		 * <PT-Br>
+		 * Captura o valor de SMBall::destroy_block
+		 * @return True, se SMBall puder destruir blocos. Caso contrario false
+		*/
+		bool can_destroy_block();
 };
 

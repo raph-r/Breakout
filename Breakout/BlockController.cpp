@@ -59,6 +59,7 @@ bool BlockController::check_colisions_on_top_of_ball(const std::unique_ptr<SMBal
 		{
 			column->second.erase(block);
 			UPSMBall->inverts_vertical_direction();
+			UPSMBall->set_can_destroy_block(false);
 			return true;
 		}
 	}
@@ -74,6 +75,7 @@ bool BlockController::check_colisions_on_botton_of_ball(const std::unique_ptr<SM
 		{
 			column->second.erase(block);
 			UPSMBall->inverts_vertical_direction();
+			UPSMBall->set_can_destroy_block(false);
 			return true;
 		}
 	}
@@ -102,7 +104,7 @@ bool BlockController::check_colisions_on_left_side_of_ball(const std::unique_ptr
 
 bool BlockController::destroy_block(const std::unique_ptr<SMBall>& UPSMBall)
 {
-	if (UPSMBall->get_line_top() <= Constant::HALF_SCREEN_HEIGHT)
+	if (UPSMBall->can_destroy_block() && UPSMBall->get_line_top() <= Constant::HALF_SCREEN_HEIGHT)
 	{
 		return this->check_colisions_on_right_side_of_ball(UPSMBall) || this->check_colisions_on_left_side_of_ball(UPSMBall);
 	}

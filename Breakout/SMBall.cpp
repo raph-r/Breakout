@@ -48,11 +48,13 @@ void SMBall::check_collision_with_limits(const std::unique_ptr<Square>& upper_li
 	{
 		this->inverts_vertical_direction();
 		this->move();
+		this->set_can_destroy_block(true);
 	}
 	else if (this->collided_on_right_of_other_square(left_limit) || this->collided_on_left_of_other_square(right_limit))
 	{
 		this->inverts_horizontal_direction();
 		this->move();
+		this->set_can_destroy_block(true);
 	}
 }
 
@@ -66,8 +68,10 @@ void SMBall::check_collision_with_player(const std::unique_ptr<SMPlayer>& player
 			|| (key[ALLEGRO_KEY_RIGHT] && !this->going_to_right))
 		{
 			this->inverts_horizontal_direction();
-			this->move();
 		}
+		this->move();
+		this->move();
+		this->set_can_destroy_block(true);
 	}
 }
 
@@ -89,5 +93,16 @@ void SMBall::increase_speed(std::unique_ptr<SMPlayer> & UPSMPlayer)
 void SMBall::reset()
 {
 	this->hits = std::move(0);
+	this->set_can_destroy_block(true);
 	SMovable::reset();
+}
+
+void SMBall::set_can_destroy_block(const bool & value)
+{
+	this->destroy_block = std::move(value);
+}
+
+bool SMBall::can_destroy_block()
+{
+	return this->destroy_block;
 }
