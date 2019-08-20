@@ -20,10 +20,10 @@ BlockController::BlockController()
 			column_of_blocks.insert(
 				std::make_pair(
 					pos_y,
-					std::make_unique<Square>(pos_x, pos_y, Constant::BLOCK_WIDTH, Constant::BLOCK_HEIGHT, color)
+					std::make_unique<Square>(pos_x, pos_y, Constant::BLOCK_GRID_WIDTH, Constant::BLOCK_GRID_HEIGHT, color)
 				)
 			);
-			pos_y += Constant::BLOCK_HEIGHT;
+			pos_y += Constant::BLOCK_GRID_HEIGHT;
 		}
 		this->blocks.insert(
 			std::make_pair(
@@ -32,7 +32,7 @@ BlockController::BlockController()
 			)
 		);
 
-		pos_x += Constant::BLOCK_WIDTH;
+		pos_x += Constant::BLOCK_GRID_WIDTH;
 		pos_y = Constant::BLOCK_INITIAL_POSITION_Y;
 	}
 }
@@ -48,4 +48,63 @@ void BlockController::draw_blocks()
 			block.second->draw();
 		}
 	}
+}
+
+bool BlockController::check_colisions_on_top_of_ball(const std::unique_ptr<SMBall>& UPSMBall, set_of_blocks::iterator column)
+{
+	auto block = column->second.find(Util::identify_grid_line_of_point(UPSMBall->get_line_top()));
+	if (block != column->second.end())
+	{
+		if (UPSMBall->collided_on_botton_of_other_square(block->second))
+		{
+			column->second.erase(block);
+			UPSMBall->inverts_vertical_direction();
+			return true;
+		}
+	}
+	return false;
+}
+
+bool BlockController::check_colisions_on_botton_of_ball(const std::unique_ptr<SMBall>& UPSMBall, set_of_blocks::iterator column)
+{
+	auto block =  column->second.find(Util::identify_grid_line_of_point(UPSMBall->get_line_botton()));
+	if (block != column->second.end())
+	{
+		if (UPSMBall->collided_on_top_of_other_square(block->second))
+		{
+			column->second.erase(block);
+			UPSMBall->inverts_vertical_direction();
+			return true;
+		}
+	}
+	return false;
+}
+
+bool BlockController::check_colisions_on_right_side_of_ball(const std::unique_ptr<SMBall>& UPSMBall)
+{
+	auto column = this->blocks.find(Util::identify_grid_column_of_point(UPSMBall->get_line_right()));
+	if (column != this->blocks.end())
+	{
+		return this->check_colisions_on_top_of_ball(UPSMBall, column) || this->check_colisions_on_botton_of_ball(UPSMBall, column);
+	}
+	return false;
+}
+
+bool BlockController::check_colisions_on_left_side_of_ball(const std::unique_ptr<SMBall>& UPSMBall)
+{
+	auto column = this->blocks.find(Util::identify_grid_column_of_point(UPSMBall->get_line_left()));
+	if (column != this->blocks.end())
+	{
+		return this->check_colisions_on_top_of_ball(UPSMBall, column) || this->check_colisions_on_botton_of_ball(UPSMBall, column);
+	}
+	return false;
+}
+
+bool BlockController::destroy_block(const std::unique_ptr<SMBall>& UPSMBall)
+{
+	if (UPSMBall->get_line_top() <= Constant::HALF_SCREEN_HEIGHT)
+	{
+		return this->check_colisions_on_right_side_of_ball(UPSMBall) || this->check_colisions_on_left_side_of_ball(UPSMBall);
+	}
+	return false;
 }

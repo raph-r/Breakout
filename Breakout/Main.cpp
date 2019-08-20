@@ -82,6 +82,7 @@ int main(int argn, char** argv)
 				}
 				else
 				{
+					UPBlockController->destroy_block(UPSMBall);
 					UPSMBall->check_collision_with_player(UPSPlayer, key);
 				}
 
