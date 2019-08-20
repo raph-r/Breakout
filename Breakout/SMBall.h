@@ -14,6 +14,7 @@ class SMBall : public SMovable
 	private:
 		bool going_to_right = true;
 		bool going_to_down = true;
+		int hits = 0;
 
 	public:
 		/**
@@ -101,5 +102,25 @@ class SMBall : public SMovable
 		 * @return True se alcancou. Caso contrario false
 		*/
 		bool is_ball_lost();
+
+		/**
+		 * <EN>
+		 * If the quantity of SMBall::hits was been reached, adds acceleration to SMBall and player
+		 * @param[in] p1 - Pointer to Player
+		 *
+		 * <PT-Br>
+		 * Caso a quantidade de SMBall::hits tenha sido alcancada, aumenta a velocidade de momento de SMBall e dos players
+		 * @param[in] p1 - Ponteiro para Player
+		*/
+		void increase_speed(std::unique_ptr<SMPlayer> & UPSMPlayer);
+
+		/**
+		 * <EN>
+		 * Reverts all attributes, to the values that was defined at the moment of creation of object
+		 *
+		 * <PT-Br>
+		 * Reverte todos os atributos para os valores definidos no momento da criacao do objeto
+		*/
+		void reset();
 };
 

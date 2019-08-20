@@ -5,7 +5,7 @@ SMPlayer::SMPlayer(std::shared_ptr<ALLEGRO_COLOR> color) : SMovable(
 	Constant::PLAYER_POSITION_Y,
 	Constant::PLAYER_WIDTH,
 	Constant::PLAYER_HEIGHT,
-	Constant::INITIAL_ACCELERATION,
+	Constant::INITIAL_ACCELERATION * 2,
 	std::move(color)
 )
 {

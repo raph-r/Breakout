@@ -47,10 +47,12 @@ void SMBall::check_collision_with_limits(const std::unique_ptr<Square>& upper_li
 	if (this->collided_on_botton_of_other_square(upper_limit))
 	{
 		this->inverts_vertical_direction();
+		this->move();
 	}
 	else if (this->collided_on_right_of_other_square(left_limit) || this->collided_on_left_of_other_square(right_limit))
 	{
 		this->inverts_horizontal_direction();
+		this->move();
 	}
 }
 
@@ -64,6 +66,7 @@ void SMBall::check_collision_with_player(const std::unique_ptr<SMPlayer>& player
 			|| (key[ALLEGRO_KEY_RIGHT] && !this->going_to_right))
 		{
 			this->inverts_horizontal_direction();
+			this->move();
 		}
 	}
 }
@@ -71,4 +74,20 @@ void SMBall::check_collision_with_player(const std::unique_ptr<SMPlayer>& player
 bool SMBall::is_ball_lost()
 {
 	return (this->top_left_y + this->height) >= Constant::LOST_BALL_LINE;
+}
+
+void SMBall::increase_speed(std::unique_ptr<SMPlayer> & UPSMPlayer)
+{
+	if (++this->hits >= 10)
+	{
+		this->add_acceleration();
+		this->hits = std::move(0);
+		UPSMPlayer->add_acceleration();
+	}
+}
+
+void SMBall::reset()
+{
+	this->hits = std::move(0);
+	SMovable::reset();
 }
