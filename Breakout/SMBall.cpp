@@ -50,11 +50,13 @@ void SMBall::check_collision_with_limits(const std::unique_ptr<Square>& upper_li
 	{
 		this->inverts_vertical_direction();
 		this->move();
+		this->move();
 		this->set_can_destroy_block(true);
 	}
 	else if (this->collided_on_right_of_other_square(left_limit) || this->collided_on_left_of_other_square(right_limit))
 	{
 		this->inverts_horizontal_direction();
+		this->move();
 		this->move();
 		this->set_can_destroy_block(true);
 	}
