@@ -40,9 +40,9 @@ int main(int argn, char** argv)
 	std::unique_ptr<Square> UPSUpperLimit = std::make_unique<Square>(Constant::UPPER_LIMIT_POSITION_X, Constant::UPPER_LIMIT_POSITION_Y, Constant::UPPER_LIMIT_WIDTH, Constant::UPPER_LIMIT_HEIGHT, SPACDarkGrey);
 	std::unique_ptr<Square> UPSLeftLimit = std::make_unique<Square>(Constant::LEFT_LIMIT_POSITION_X, Constant::LEFT_LIMIT_POSITION_Y, Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT, Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT, SPACDarkGrey);
 	std::unique_ptr<Square> UPSRightLimit = std::make_unique<Square>(Constant::RIGHT_LIMIT_POSITION_X, Constant::RIGHT_LIMIT_POSITION_Y, Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT, Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT, SPACDarkGrey);
-	std::unique_ptr<SMPlayer> UPSPlayer = std::make_unique<SMPlayer>(SPACWhite);
-	std::unique_ptr<SMBall> UPSMBall = std::make_unique<SMBall>(SPACWhite);
-	std::unique_ptr <BlockController> UPBlockController = std::make_unique<BlockController>();
+	std::shared_ptr<SMPlayer> SPSPlayer = std::make_shared<SMPlayer>(SPACWhite);
+	std::shared_ptr<SMBall> SPSMBall = std::make_shared<SMBall>(SPSPlayer, SPACWhite);
+	std::unique_ptr <BlockController> UPBlockController = std::make_unique<BlockController>(SPSPlayer, SPSMBall);
 
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -65,15 +65,15 @@ int main(int argn, char** argv)
 					continue_to_play = false;
 				}
 
-				UPSPlayer->move(key, UPSLeftLimit, UPSRightLimit);
-				UPSMBall->check_collision_with_limits(UPSUpperLimit, UPSLeftLimit, UPSRightLimit);
+				SPSPlayer->move(key, UPSLeftLimit, UPSRightLimit);
+				SPSMBall->check_collision_with_limits(UPSUpperLimit, UPSLeftLimit, UPSRightLimit);
 
-				if (UPSMBall->is_ball_lost())
+				if (SPSMBall->is_ball_lost())
 				{
-					if (UPSPlayer->remove_a_remaining_ball())
+					if (SPSPlayer->remove_a_remaining_ball())
 					{
-						UPSMBall->reset();
-						UPSPlayer->reset();
+						SPSMBall->reset();
+						SPSPlayer->reset();
 					}
 					else
 					{
@@ -82,15 +82,15 @@ int main(int argn, char** argv)
 				}
 				else
 				{
-					if (UPBlockController->destroy_block(UPSMBall))
+					if (UPBlockController->destroy_block())
 					{
-						UPSMBall->increase_speed(UPSPlayer);
-						UPSMBall->move();
+						SPSMBall->increase_speed();
+						SPSMBall->move();
 					}
-					UPSMBall->check_collision_with_player(UPSPlayer, key);
+					SPSMBall->check_collision_with_player(key);
 				}
 
-				UPSMBall->move();
+				SPSMBall->move();
 				// Reset array of keys
 				Util::reset_array_of_keys(key);
 
@@ -123,7 +123,7 @@ int main(int argn, char** argv)
 				-5,
 				ALLEGRO_ALIGN_CENTER,
 				"%u",
-				UPSPlayer->get_score()
+				SPSPlayer->get_score()
 			);
 			al_draw_textf(
 				SPFont_36->getFont(),
@@ -132,11 +132,11 @@ int main(int argn, char** argv)
 				-5,
 				ALLEGRO_ALIGN_CENTER,
 				"%u",
-				UPSPlayer->get_remaining_balls()
+				SPSPlayer->get_remaining_balls()
 			);
-			UPSMBall->draw();
+			SPSMBall->draw();
 			UPBlockController->draw_blocks();
-			UPSPlayer->draw();
+			SPSPlayer->draw();
 			al_flip_display();
 		}
 	}

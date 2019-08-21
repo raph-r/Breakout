@@ -154,6 +154,7 @@
     <ClCompile Include="ASample.cpp" />
     <ClCompile Include="ATimer.cpp" />
     <ClCompile Include="ATTFFont.cpp" />
+    <ClCompile Include="SBlock.cpp" />
     <ClCompile Include="SMBall.cpp" />
     <ClCompile Include="BlockController.cpp" />
     <ClCompile Include="Constant.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="ASample.h" />
     <ClInclude Include="ATimer.h" />
     <ClInclude Include="ATTFFont.h" />
+    <ClInclude Include="SBlock.h" />
     <ClInclude Include="SMBall.h" />
     <ClInclude Include="BlockController.h" />
     <ClInclude Include="Constant.h" />

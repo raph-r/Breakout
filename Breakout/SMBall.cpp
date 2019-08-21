@@ -1,13 +1,15 @@
 #include "SMBall.h"
 
-SMBall::SMBall(std::shared_ptr<ALLEGRO_COLOR> color) : SMovable(
+SMBall::SMBall(std::shared_ptr<SMPlayer> SPSMPlayer, std::shared_ptr<ALLEGRO_COLOR> color) : SMovable(
 	Constant::BALL_INITIAL_POSITION_X,
 	Constant::BALL_INITIAL_POSITION_Y,
 	Constant::BALL_WIDTH,
 	Constant::BALL_HEIGHT,
 	Constant::INITIAL_ACCELERATION,
 	std::move(color)
-){}
+){
+	this->SPSMPlayer = std::move(SPSMPlayer);
+}
 
 SMBall::~SMBall(){}
 
@@ -58,9 +60,9 @@ void SMBall::check_collision_with_limits(const std::unique_ptr<Square>& upper_li
 	}
 }
 
-void SMBall::check_collision_with_player(const std::unique_ptr<SMPlayer>& player, const unsigned char * key)
+void SMBall::check_collision_with_player(const unsigned char * key)
 {
-	std::unique_ptr<Square> UPSPlayer = std::make_unique<Square>(*player);
+	std::unique_ptr<Square> UPSPlayer = std::make_unique<Square>(*this->SPSMPlayer);
 	if (this->collided_on_top_of_other_square(UPSPlayer))
 	{
 		this->inverts_vertical_direction();
@@ -80,13 +82,13 @@ bool SMBall::is_ball_lost()
 	return (this->top_left_y + this->height) >= Constant::LOST_BALL_LINE;
 }
 
-void SMBall::increase_speed(std::unique_ptr<SMPlayer> & UPSMPlayer)
+void SMBall::increase_speed()
 {
 	if (++this->hits >= 10)
 	{
 		this->add_acceleration();
 		this->hits = std::move(0);
-		UPSMPlayer->add_acceleration();
+		this->SPSMPlayer->add_acceleration();
 	}
 }
 

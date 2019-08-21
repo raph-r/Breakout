@@ -31,6 +31,7 @@ class Constant
 		static const unsigned int BLOCK_GRID_HEIGHT;
 		static const unsigned int BLOCK_INITIAL_POSITION_X;
 		static const unsigned int BLOCK_INITIAL_POSITION_Y;
+		static const unsigned int MAX_POINT_EACH_BLOCK;
 
 		static const unsigned int UPPER_LIMIT_POSITION_X;
 		static const unsigned int UPPER_LIMIT_POSITION_Y;

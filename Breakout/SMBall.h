@@ -15,19 +15,22 @@ class SMBall : public SMovable
 		bool going_to_right = true;
 		bool going_to_down = true;
 		bool destroy_block = false;
+		std::shared_ptr<SMPlayer> SPSMPlayer = nullptr;
 		int hits = 0;
 
 	public:
 		/**
 		 * <EN>
 		 * Class constructor.
+		 * @param[in] SPSMPlayer - Shared pointer to player
 		 * @param[in] color - Color of object
 		 *
 		 * <PT-Br>
 		 * Construtor da classe.
+		 * @param[in] SPSMPlayer - Shared pointer para o jogador
 		 * @param[in] color - Cor do objeto
 		*/
-		SMBall(std::shared_ptr<ALLEGRO_COLOR> color);
+		SMBall(std::shared_ptr<SMPlayer> SPSMPlayer, std::shared_ptr<ALLEGRO_COLOR> color);
 
 		/**
 		 * <EN>
@@ -83,15 +86,13 @@ class SMBall : public SMovable
 		/**
 		 * <EN>
 		 * Verify if SMBall collided with player and change the directions of your movements
-		 * @param[in] player - Pointer to Object that represents player
 		 * @param[in] key - Array of flags indicating the state of each key
 		 *
 		 * <PT-Br>
 		 * Verifica se SMBall colidiu com o jogador e altera a direcao dos movimentos
-		 * @param[in] player - Ponteiro para o objeto que representa o jogador
 		 * @param[in] key - Array de bandeiras que identificam cada tecla
 		*/
-		void check_collision_with_player(const std::unique_ptr<SMPlayer> & player, const unsigned char * key);
+		void check_collision_with_player(const unsigned char * key);
 
 		/**
 		 * <EN>
@@ -107,13 +108,11 @@ class SMBall : public SMovable
 		/**
 		 * <EN>
 		 * If the quantity of SMBall::hits was been reached, adds acceleration to SMBall and player
-		 * @param[in] p1 - Pointer to Player
 		 *
 		 * <PT-Br>
 		 * Caso a quantidade de SMBall::hits tenha sido alcancada, aumenta a velocidade de momento de SMBall e dos players
-		 * @param[in] p1 - Ponteiro para Player
 		*/
-		void increase_speed(std::unique_ptr<SMPlayer> & UPSMPlayer);
+		void increase_speed();
 
 		/**
 		 * <EN>

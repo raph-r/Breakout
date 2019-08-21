@@ -21,6 +21,7 @@ const unsigned int Constant::BLOCK_GRID_WIDTH = 32;
 const unsigned int Constant::BLOCK_GRID_HEIGHT = 16;
 const unsigned int Constant::BLOCK_INITIAL_POSITION_X = Constant::BLOCK_GRID_WIDTH;
 const unsigned int Constant::BLOCK_INITIAL_POSITION_Y = Constant::BLOCK_GRID_HEIGHT * 8;
+const unsigned int Constant::MAX_POINT_EACH_BLOCK = 7;
 
 const unsigned int Constant::UPPER_LIMIT_POSITION_X = Constant::BLOCK_GRID_HEIGHT * 2;
 const unsigned int Constant::UPPER_LIMIT_POSITION_Y = Constant::BLOCK_GRID_HEIGHT * 2;
@@ -32,7 +33,6 @@ const unsigned int Constant::RIGHT_LIMIT_POSITION_X = Constant::SCREEN_WIDTH - C
 const unsigned int Constant::RIGHT_LIMIT_POSITION_Y = Constant::UPPER_LIMIT_POSITION_Y;
 const unsigned int Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT = Constant::SCREEN_HEIGHT - Constant::UPPER_LIMIT_POSITION_Y;
 const unsigned int Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT = Constant::UPPER_LIMIT_POSITION_X;
-
 
 const unsigned int Constant::BALL_INITIAL_POSITION_X = Constant::HALF_SCREEN_WIDTH;
 const unsigned int Constant::BALL_INITIAL_POSITION_Y = Constant::HALF_SCREEN_HEIGHT;
