@@ -21,6 +21,8 @@ class Constant
 		static const unsigned int QUANTITY_OF_BALLS;
 		static const unsigned int REMAINING_BALLS_POSITION_X;
 		static const unsigned int SCORE_POSITION_X;
+		static const char GAME_NAME[];
+		static const char MSG_PLAY_GAME[];
 
 		static const unsigned int PLAYER_WIDTH;
 		static const unsigned int PLAYER_HEIGHT;

@@ -14,7 +14,7 @@ int main(int argn, char** argv)
 	bool continue_to_play = true;
 	bool draw = false;
 	bool is_ball_in_game = false;
-	int scene = 1;
+	int scene = 0;
 
 	// Initialize the basics objects of Allegro
 	Validate::object_was_initialized(al_init(), "Allegro");
@@ -22,7 +22,8 @@ int main(int argn, char** argv)
 	Validate::object_was_initialized(al_init_primitives_addon(), "Primitives Addon");
 	Validate::object_was_initialized(al_init_font_addon(), "Font Addon");
 	Validate::object_was_initialized(al_init_ttf_addon(), "Font TTF Addon");
-	std::shared_ptr<ATTFFont> SPFont_36 = std::make_shared<ATTFFont>("Oswald-Medium.ttf", 30);
+	std::shared_ptr<ATTFFont> SPFont_30 = std::make_shared<ATTFFont>("Oswald-Medium.ttf", 30);
+	std::shared_ptr<ATTFFont> SPFont_36 = std::make_shared<ATTFFont>("Oswald-Medium.ttf", 36);
 
 	// Initialize the object of Allegro that had been encapsulated
 	std::unique_ptr<ATimer> UPATimer = std::make_unique<ATimer>(1.0 / 60);
@@ -67,11 +68,7 @@ int main(int argn, char** argv)
 					continue_to_play = false;
 				}
 
-				if (scene == 0)
-				{
-					// TODO
-				}
-				else if (scene == 1 || scene == 2)
+				if (scene == 1 || scene == 2)
 				{
 					if (UPBlockController->all_blocks_was_destroyed())
 					{
@@ -108,19 +105,24 @@ int main(int argn, char** argv)
 						if (key[ALLEGRO_KEY_SPACE])
 						{
 							SPSMBall->reset();
-							SPSPlayer->reset();
+							SPSPlayer->reset_position_and_acceleration();
 							SPSPlayer->remove_a_remaining_ball();
 							is_ball_in_game = true;
 						}
 					}
 					else
 					{
-						continue_to_play = false;
+						scene = 3;
 					}
 				}
-				else if (scene == 3)
+				else if (scene == 0 || scene == 3)
 				{
-					// TODO
+					if (key[ALLEGRO_KEY_ENTER])
+					{
+						scene = 1;
+						SPSPlayer->reset();
+						UPBlockController->initialize_blocks();
+					}
 				}
 				
 				// Reset array of keys
@@ -151,15 +153,25 @@ int main(int argn, char** argv)
 				UPSLeftLimit->draw();
 				UPSRightLimit->draw();
 				// draw score
-				al_draw_textf(SPFont_36->getFont(), *SPACDarkGrey, Constant::SCORE_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSPlayer->get_score());
+				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::SCORE_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSPlayer->get_score());
 				// draw remaining balls of player
-				al_draw_textf(SPFont_36->getFont(), *SPACDarkGrey, Constant::REMAINING_BALLS_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSPlayer->get_remaining_balls());
+				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::REMAINING_BALLS_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSPlayer->get_remaining_balls());
 				if (is_ball_in_game)
 				{
 					SPSMBall->draw();
 				}
 				UPBlockController->draw_blocks();
 				SPSPlayer->draw();
+			}
+			else if (scene == 0)
+			{
+				al_draw_textf(SPFont_36->getFont(), *SPACDarkGrey, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT - al_get_font_line_height(SPFont_36->getFont()), ALLEGRO_ALIGN_CENTER, Constant::GAME_NAME);
+				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT, ALLEGRO_ALIGN_CENTER, Constant::MSG_PLAY_GAME);
+			}
+			else if (scene == 3)
+			{
+				al_draw_textf(SPFont_36->getFont(), *SPACDarkGrey, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT, ALLEGRO_ALIGN_CENTER, "Your score: %u", SPSPlayer->get_score());
+				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT + al_get_font_line_height(SPFont_36->getFont()), ALLEGRO_ALIGN_CENTER, "Press Enter to play again");
 			}
 			al_flip_display();
 		}

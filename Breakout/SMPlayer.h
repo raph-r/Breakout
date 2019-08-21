@@ -88,5 +88,23 @@ private:
 		 * @return True se foi possivel remover. Caso contrario false
 		*/
 		bool remove_a_remaining_ball();
+
+		/**
+		 * <EN>
+		 * Reverts all attributes, to the values that was defined at the moment of creation of object
+		 *
+		 * <PT-Br>
+		 * Reverte todos os atributos para os valores definidos no momento da criacao do objeto
+		*/
+		void reset();
+
+		/**
+		 * <EN>
+		 * Reverts the attributes, related to position and Acceleration
+		 *
+		 * <PT-Br>
+		 * Reverte os atributos relacionados a posicao e aceleracao
+		*/
+		void reset_position_and_acceleration();
 };
 

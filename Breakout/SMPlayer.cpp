@@ -50,3 +50,15 @@ bool SMPlayer::remove_a_remaining_ball()
 	}
 	return false;
 }
+
+void SMPlayer::reset()
+{
+	this->score = std::move(0);
+	this->remaining_balls = Constant::QUANTITY_OF_BALLS;
+	this->reset_position_and_acceleration();
+}
+
+void SMPlayer::reset_position_and_acceleration()
+{
+	SMovable::reset();
+}

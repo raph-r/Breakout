@@ -102,6 +102,7 @@ bool BlockController::destroy_block()
 
 void BlockController::initialize_blocks()
 {
+	this->blocks.clear();
 	int pos_x = Constant::BLOCK_INITIAL_POSITION_X;
 	int pos_y = Constant::BLOCK_INITIAL_POSITION_Y;
 	int points = Constant::MAX_POINT_EACH_BLOCK;
