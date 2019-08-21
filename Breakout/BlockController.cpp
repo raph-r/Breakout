@@ -13,34 +13,7 @@ BlockController::BlockController(std::shared_ptr<SMPlayer> SPSMPlayer, std::shar
 	this->color_palette[4] = std::make_shared<ALLEGRO_COLOR>(std::move(al_map_rgba_f(0, 1, 0, 0.2))); // green
 	this->color_palette[5] = std::make_shared<ALLEGRO_COLOR>(std::move(al_map_rgba_f(0, 0, 1, 0.2))); // blue
 
-	int pos_x = Constant::BLOCK_INITIAL_POSITION_X;
-	int pos_y = Constant::BLOCK_INITIAL_POSITION_Y;
-	int points = Constant::MAX_POINT_EACH_BLOCK;
-	for (unsigned int i = 0; i < Constant::AMOUNT_OF_BLOCK_ALIGN_HORIZONTALLY; i++)
-	{
-		
-		std::unordered_map<int, std::unique_ptr<SBlock>> column_of_blocks;
-		for (int x = 0; x < 6; x++)
-		{
-			if (x > 0 && (x % 2) == 0)
-			{
-				points -= 3;
-			}
-			column_of_blocks.insert(
-				std::make_pair(
-					pos_y,
-					std::make_unique<SBlock>(pos_x, pos_y, Constant::BLOCK_GRID_WIDTH, Constant::BLOCK_GRID_HEIGHT, this->color_palette[x], points)
-				)
-			);
-			pos_y += Constant::BLOCK_GRID_HEIGHT;
-		}
-		this->blocks.insert(
-			std::make_pair(pos_x,std::move(column_of_blocks))
-		);
-		points = Constant::MAX_POINT_EACH_BLOCK;
-		pos_x += Constant::BLOCK_GRID_WIDTH;
-		pos_y = Constant::BLOCK_INITIAL_POSITION_Y;
-	}
+	this->initialize_blocks();
 }
 
 BlockController::~BlockController(){}
@@ -117,4 +90,36 @@ bool BlockController::destroy_block()
 		return this->check_colisions_on_right_side_of_ball() || this->check_colisions_on_left_side_of_ball();
 	}
 	return false;
+}
+
+void BlockController::initialize_blocks()
+{
+	int pos_x = Constant::BLOCK_INITIAL_POSITION_X;
+	int pos_y = Constant::BLOCK_INITIAL_POSITION_Y;
+	int points = Constant::MAX_POINT_EACH_BLOCK;
+	for (unsigned int i = 0; i < Constant::AMOUNT_OF_BLOCK_ALIGN_HORIZONTALLY; i++)
+	{
+
+		std::unordered_map<int, std::unique_ptr<SBlock>> column_of_blocks;
+		for (int x = 0; x < 6; x++)
+		{
+			if (x > 0 && (x % 2) == 0)
+			{
+				points -= 3;
+			}
+			column_of_blocks.insert(
+				std::make_pair(
+					pos_y,
+					std::make_unique<SBlock>(pos_x, pos_y, Constant::BLOCK_GRID_WIDTH, Constant::BLOCK_GRID_HEIGHT, this->color_palette[x], points)
+				)
+			);
+			pos_y += Constant::BLOCK_GRID_HEIGHT;
+		}
+		this->blocks.insert(
+			std::make_pair(pos_x, std::move(column_of_blocks))
+		);
+		points = Constant::MAX_POINT_EACH_BLOCK;
+		pos_x += Constant::BLOCK_GRID_WIDTH;
+		pos_y = Constant::BLOCK_INITIAL_POSITION_Y;
+	}
 }

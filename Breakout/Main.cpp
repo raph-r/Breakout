@@ -43,7 +43,7 @@ int main(int argn, char** argv)
 	std::shared_ptr<SMPlayer> SPSPlayer = std::make_shared<SMPlayer>(SPACWhite);
 	std::shared_ptr<SMBall> SPSMBall = std::make_shared<SMBall>(SPSPlayer, SPACWhite);
 	std::unique_ptr <BlockController> UPBlockController = std::make_unique<BlockController>(SPSPlayer, SPSMBall);
-
+	UPBlockController->initialize_blocks();
 	//captures the current event
 	ALLEGRO_EVENT event;
 	

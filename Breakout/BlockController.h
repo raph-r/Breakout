@@ -127,5 +127,14 @@ class BlockController
 		 * @return Se algum bloco foi destruido, retorna true, caso contrario false
 		*/
 		bool destroy_block();
+
+		/**
+		 * <EN>
+		 * Initializes the blocks to be destroyed
+		 *
+		 * <PT-Br>
+		 * Inicializa os blocos para serem destruidos
+		*/
+		void initialize_blocks();
 };
 
