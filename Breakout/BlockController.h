@@ -136,5 +136,16 @@ class BlockController
 		 * Inicializa os blocos para serem destruidos
 		*/
 		void initialize_blocks();
+
+		/**
+		 * <EN>
+		 * Verify if all blocks was destroyed
+		 * @return True, if all blocks was destroyed. Otherwise false
+		 *
+		 * <PT-Br>
+		 * Verifica se todos os blocos foram destruidos
+		 * @return True, se todos os blocos foram destruidos. Caso contrario false
+		*/
+		bool all_blocks_was_destroyed();
 };
 

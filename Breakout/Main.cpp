@@ -13,6 +13,8 @@ int main(int argn, char** argv)
 {
 	bool continue_to_play = true;
 	bool draw = false;
+	bool is_ball_in_game = false;
+	int scene = 1;
 
 	// Initialize the basics objects of Allegro
 	Validate::object_was_initialized(al_init(), "Allegro");
@@ -65,32 +67,62 @@ int main(int argn, char** argv)
 					continue_to_play = false;
 				}
 
-				SPSPlayer->move(key, UPSLeftLimit, UPSRightLimit);
-				SPSMBall->check_collision_with_limits(UPSUpperLimit, UPSLeftLimit, UPSRightLimit);
-
-				if (SPSMBall->is_ball_lost())
+				if (scene == 0)
 				{
-					if (SPSPlayer->remove_a_remaining_ball())
+					// TODO
+				}
+				else if (scene == 1 || scene == 2)
+				{
+					if (UPBlockController->all_blocks_was_destroyed())
 					{
-						SPSMBall->reset();
-						SPSPlayer->reset();
+						if (scene == 1)
+						{
+							UPBlockController->initialize_blocks();
+						}
+						scene++;
+					}
+
+					SPSPlayer->move(key, UPSLeftLimit, UPSRightLimit);
+					if (is_ball_in_game)
+					{
+						SPSMBall->check_collision_with_limits(UPSUpperLimit, UPSLeftLimit, UPSRightLimit);
+
+						if (SPSMBall->is_ball_lost())
+						{
+							is_ball_in_game = false;
+						}
+						else
+						{
+							if (UPBlockController->destroy_block())
+							{
+								SPSMBall->increase_speed();
+								SPSMBall->move();
+							}
+							SPSMBall->check_collision_with_player(key);
+						}
+
+						SPSMBall->move();
+					}
+					else if (SPSPlayer->get_remaining_balls())
+					{
+						if (key[ALLEGRO_KEY_SPACE])
+						{
+							SPSMBall->reset();
+							SPSPlayer->reset();
+							SPSPlayer->remove_a_remaining_ball();
+							is_ball_in_game = true;
+						}
 					}
 					else
 					{
 						continue_to_play = false;
 					}
 				}
-				else
+				else if (scene == 3)
 				{
-					if (UPBlockController->destroy_block())
-					{
-						SPSMBall->increase_speed();
-						SPSMBall->move();
-					}
-					SPSMBall->check_collision_with_player(key);
+					// TODO
 				}
-
-				SPSMBall->move();
+				
 				// Reset array of keys
 				Util::reset_array_of_keys(key);
 
@@ -112,31 +144,23 @@ int main(int argn, char** argv)
 		if (draw && al_is_event_queue_empty(UPAEventQueue->getEventQueue()))
 		{
 			draw = false;
-			al_clear_to_color(*SPACBlack);
-			UPSUpperLimit->draw();
-			UPSLeftLimit->draw();
-			UPSRightLimit->draw();
-			al_draw_textf(
-				SPFont_36->getFont(),
-				*SPACDarkGrey,
-				Constant::HALF_SCREEN_WIDTH / 2,
-				-5,
-				ALLEGRO_ALIGN_CENTER,
-				"%u",
-				SPSPlayer->get_score()
-			);
-			al_draw_textf(
-				SPFont_36->getFont(),
-				*SPACDarkGrey,
-				Constant::HALF_SCREEN_WIDTH + (Constant::HALF_SCREEN_WIDTH / 2),
-				-5,
-				ALLEGRO_ALIGN_CENTER,
-				"%u",
-				SPSPlayer->get_remaining_balls()
-			);
-			SPSMBall->draw();
-			UPBlockController->draw_blocks();
-			SPSPlayer->draw();
+			if (scene == 1 || scene == 2)
+			{
+				al_clear_to_color(*SPACBlack);
+				UPSUpperLimit->draw();
+				UPSLeftLimit->draw();
+				UPSRightLimit->draw();
+				// draw score
+				al_draw_textf(SPFont_36->getFont(), *SPACDarkGrey, Constant::SCORE_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSPlayer->get_score());
+				// draw remaining balls of player
+				al_draw_textf(SPFont_36->getFont(), *SPACDarkGrey, Constant::REMAINING_BALLS_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSPlayer->get_remaining_balls());
+				if (is_ball_in_game)
+				{
+					SPSMBall->draw();
+				}
+				UPBlockController->draw_blocks();
+				SPSPlayer->draw();
+			}
 			al_flip_display();
 		}
 	}

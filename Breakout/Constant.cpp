@@ -9,6 +9,8 @@ const unsigned int Constant::KEY_RELEASED = 2;
 const unsigned int Constant::LOST_BALL_LINE = Constant::SCREEN_HEIGHT - Constant::BLOCK_GRID_HEIGHT;
 const unsigned int Constant::INITIAL_ACCELERATION = 3;
 const unsigned int Constant::QUANTITY_OF_BALLS = 5;
+const unsigned int Constant::REMAINING_BALLS_POSITION_X = Constant::HALF_SCREEN_WIDTH + (Constant::HALF_SCREEN_WIDTH / 2);
+const unsigned int Constant::SCORE_POSITION_X = Constant::HALF_SCREEN_WIDTH / 2;
 
 const unsigned int Constant::PLAYER_WIDTH = Constant::BLOCK_GRID_WIDTH * 3;
 const unsigned int Constant::PLAYER_HEIGHT = 10;

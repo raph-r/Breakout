@@ -38,6 +38,10 @@ bool BlockController::check_colisions_on_top_of_ball(set_of_blocks::iterator col
 		{
 			this->SPSMPlayer->add_score(block->second->get_score());
 			column->second.erase(block);
+			if (column->second.size() == 0)
+			{
+				this->blocks.erase(column);
+			}
 			this->SPSMBall->inverts_vertical_direction();
 			this->SPSMBall->set_can_destroy_block(false);
 			return true;
@@ -55,6 +59,10 @@ bool BlockController::check_colisions_on_botton_of_ball(set_of_blocks::iterator 
 		{
 			this->SPSMPlayer->add_score(block->second->get_score());
 			column->second.erase(block);
+			if (column->second.size() == 0)
+			{
+				this->blocks.erase(column);
+			}
 			this->SPSMBall->inverts_vertical_direction();
 			this->SPSMBall->set_can_destroy_block(false);
 			return true;
@@ -122,4 +130,9 @@ void BlockController::initialize_blocks()
 		pos_x += Constant::BLOCK_GRID_WIDTH;
 		pos_y = Constant::BLOCK_INITIAL_POSITION_Y;
 	}
+}
+
+bool BlockController::all_blocks_was_destroyed()
+{
+	return this->blocks.empty();
 }

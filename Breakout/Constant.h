@@ -19,6 +19,8 @@ class Constant
 		static const unsigned int LOST_BALL_LINE;
 		static const unsigned int INITIAL_ACCELERATION;
 		static const unsigned int QUANTITY_OF_BALLS;
+		static const unsigned int REMAINING_BALLS_POSITION_X;
+		static const unsigned int SCORE_POSITION_X;
 
 		static const unsigned int PLAYER_WIDTH;
 		static const unsigned int PLAYER_HEIGHT;
