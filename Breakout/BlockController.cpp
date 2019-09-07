@@ -37,6 +37,11 @@ bool BlockController::check_colisions_on_top_of_ball(set_of_blocks::iterator col
 		if (this->SPSMBall->collided_on_botton_of_other_square(std::make_unique<Square>(*block->second)))
 		{
 			this->SPSMPlayer->add_score(block->second->get_score());
+			if (block->second->get_enum_color() == Util::ColorBlock::ORANGE)
+			{
+				this->SPSMBall->double_acceleration();
+				this->SPSMPlayer->double_acceleration();
+			}
 			column->second.erase(block);
 			if (column->second.size() == 0)
 			{
@@ -58,6 +63,11 @@ bool BlockController::check_colisions_on_botton_of_ball(set_of_blocks::iterator 
 		if (this->SPSMBall->collided_on_top_of_other_square(std::make_unique<Square>(*block->second)))
 		{
 			this->SPSMPlayer->add_score(block->second->get_score());
+			if (block->second->get_enum_color() == Util::ColorBlock::ORANGE)
+			{
+				this->SPSMBall->double_acceleration();
+				this->SPSMPlayer->double_acceleration();
+			}
 			column->second.erase(block);
 			if (column->second.size() == 0)
 			{
@@ -119,7 +129,7 @@ void BlockController::initialize_blocks()
 			column_of_blocks.insert(
 				std::make_pair(
 					pos_y,
-					std::make_unique<SBlock>(pos_x, pos_y, Constant::BLOCK_GRID_WIDTH, Constant::BLOCK_GRID_HEIGHT, this->color_palette[x], points)
+					std::make_unique<SBlock>(pos_x, pos_y, Constant::BLOCK_GRID_WIDTH, Constant::BLOCK_GRID_HEIGHT, this->color_palette[x], static_cast<Util::ColorBlock>(x) , points)
 				)
 			);
 			pos_y += Constant::BLOCK_GRID_HEIGHT;

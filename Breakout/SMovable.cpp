@@ -36,9 +36,12 @@ void SMovable::right()
 	this->top_left_x += this->acceleration;
 }
 
-void SMovable::add_acceleration()
+void SMovable::double_acceleration()
 {
-	this->acceleration++;
+	if (this->acceleration == this->initial_acceleration)
+	{
+		this->acceleration += (this->acceleration / 2);
+	}
 }
 
 void SMovable::reset()

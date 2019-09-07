@@ -83,4 +83,21 @@ namespace Util
 	 * @return ponto Y, esquerdo superior do grid
 	*/
 	int identify_grid_line_of_point(const int & point);
+
+	/**
+	 * <EN>
+	 * Enum class that represents the colors of blocks
+	 *
+	 * <PT-Br>
+	 * Classe Enum que representa as cores dos blocos
+	*/
+	enum class ColorBlock
+	{
+		PINK,
+		RED,
+		ORANGE,
+		YELLOW,
+		GREEN,
+		BLUE
+	};
 }

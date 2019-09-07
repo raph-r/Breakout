@@ -107,15 +107,6 @@ class SMBall : public SMovable
 
 		/**
 		 * <EN>
-		 * If the quantity of SMBall::hits was been reached, adds acceleration to SMBall and player
-		 *
-		 * <PT-Br>
-		 * Caso a quantidade de SMBall::hits tenha sido alcancada, aumenta a velocidade de momento de SMBall e dos players
-		*/
-		void increase_speed();
-
-		/**
-		 * <EN>
 		 * Reverts all attributes, to the values that was defined at the moment of creation of object
 		 *
 		 * <PT-Br>

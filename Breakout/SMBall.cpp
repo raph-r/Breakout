@@ -84,16 +84,6 @@ bool SMBall::is_ball_lost()
 	return (this->top_left_y + this->height) >= Constant::LOST_BALL_LINE;
 }
 
-void SMBall::increase_speed()
-{
-	if (++this->hits >= 10)
-	{
-		this->add_acceleration();
-		this->hits = std::move(0);
-		this->SPSMPlayer->add_acceleration();
-	}
-}
-
 void SMBall::reset()
 {
 	this->hits = std::move(0);

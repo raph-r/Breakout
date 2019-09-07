@@ -11,6 +11,7 @@ class SBlock : public Square
 {
 	private:
 		int score = 0;
+		Util::ColorBlock enum_color;
 
 	public:
 		/**
@@ -21,6 +22,7 @@ class SBlock : public Square
 		 * @param[in] width
 		 * @param[in] height
 		 * @param[in] color
+		 * @param[in] enum_color
 		 * @param[in] score
 		 *
 		 * <PT-Br>
@@ -30,9 +32,10 @@ class SBlock : public Square
 		 * @param[in] width
 		 * @param[in] height
 		 * @param[in] color
+		 * @param[in] enum_color
 		 * @param[in] score
 		*/
-		SBlock(const int& top_left_x, const int& top_left_y, const int& width, const int& height, std::shared_ptr<ALLEGRO_COLOR> color, const int & score);
+		SBlock(const int& top_left_x, const int& top_left_y, const int& width, const int& height, std::shared_ptr<ALLEGRO_COLOR> color, const Util::ColorBlock & enum_color, const int & score);
 
 		/**
 		 * <EN>
@@ -53,5 +56,16 @@ class SBlock : public Square
 		 * @return quantidade de pontos que sera dado ao jogador, se ele destruir este objeto
 		*/
 		int get_score();
+
+		/**
+		 * <EN>
+		 * Get the value of SBlock::score
+		 * @return color of Util::ColorBlock that SBlock represents
+		 *
+		 * <PT-Br>
+		 * Captura o valor de SBlock::enum_color
+		 * @return cor de Util::ColorBlock que este SBlock representa
+		*/
+		Util::ColorBlock get_enum_color();
 };
 

@@ -86,12 +86,12 @@ class SMovable : public Square
 
 		/**
 		 * <EN>
-		 * Add 1 to acceleration of SMovable
+		 * Double the acceleration of SMovable. The acceleration will be doubled only one time
 		 *
 		 * <PT-Br>
-		 * Adiciona 1 a aceleracao de SMovable
+		 * Dobra a aceleracao de SMovable. A aceleracao sera dobrada apenas uma vez
 		*/
-		void add_acceleration();
+		void double_acceleration();
 
 		/**
 		 * <EN>

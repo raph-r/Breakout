@@ -92,7 +92,6 @@ int main(int argn, char** argv)
 						{
 							if (UPBlockController->destroy_block())
 							{
-								SPSMBall->increase_speed();
 								SPSMBall->move();
 							}
 							SPSMBall->check_collision_with_player(key);
