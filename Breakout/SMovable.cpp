@@ -40,7 +40,7 @@ void SMovable::double_acceleration()
 {
 	if (this->acceleration == this->initial_acceleration)
 	{
-		this->acceleration += (this->acceleration / 2);
+		this->acceleration += (this->acceleration / 2.5);
 	}
 }
 

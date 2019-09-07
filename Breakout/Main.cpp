@@ -43,9 +43,9 @@ int main(int argn, char** argv)
 	std::unique_ptr<Square> UPSUpperLimit = std::make_unique<Square>(Constant::UPPER_LIMIT_POSITION_X, Constant::UPPER_LIMIT_POSITION_Y, Constant::UPPER_LIMIT_WIDTH, Constant::UPPER_LIMIT_HEIGHT, SPACDarkGrey);
 	std::unique_ptr<Square> UPSLeftLimit = std::make_unique<Square>(Constant::LEFT_LIMIT_POSITION_X, Constant::LEFT_LIMIT_POSITION_Y, Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT, Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT, SPACDarkGrey);
 	std::unique_ptr<Square> UPSRightLimit = std::make_unique<Square>(Constant::RIGHT_LIMIT_POSITION_X, Constant::RIGHT_LIMIT_POSITION_Y, Constant::WIDTH_OF_RIGHT_AND_LEFT_LIMIT, Constant::HEIGHT_OF_RIGHT_AND_LEFT_LIMIT, SPACDarkGrey);
-	std::shared_ptr<SMPlayer> SPSPlayer = std::make_shared<SMPlayer>(SPACWhite);
-	std::shared_ptr<SMBall> SPSMBall = std::make_shared<SMBall>(SPSPlayer, SPACWhite);
-	std::unique_ptr <BlockController> UPBlockController = std::make_unique<BlockController>(SPSPlayer, SPSMBall);
+	std::shared_ptr<SMPlayer> SPSMPlayer = std::make_shared<SMPlayer>(SPACWhite);
+	std::shared_ptr<SMBall> SPSMBall = std::make_shared<SMBall>(SPSMPlayer, SPACWhite);
+	std::unique_ptr <BlockController> UPBlockController = std::make_unique<BlockController>(SPSMPlayer, SPSMBall);
 	UPBlockController->initialize_blocks();
 	//captures the current event
 	ALLEGRO_EVENT event;
@@ -79,7 +79,7 @@ int main(int argn, char** argv)
 						scene++;
 					}
 
-					SPSPlayer->move(key, UPSLeftLimit, UPSRightLimit);
+					SPSMPlayer->move(key, UPSLeftLimit, UPSRightLimit);
 					if (is_ball_in_game)
 					{
 						SPSMBall->check_collision_with_limits(UPSUpperLimit, UPSLeftLimit, UPSRightLimit);
@@ -93,19 +93,20 @@ int main(int argn, char** argv)
 							if (UPBlockController->destroy_block())
 							{
 								SPSMBall->move();
+								SPSMPlayer->reduce_width();
 							}
 							SPSMBall->check_collision_with_player(key);
 						}
 
 						SPSMBall->move();
 					}
-					else if (SPSPlayer->get_remaining_balls())
+					else if (SPSMPlayer->get_remaining_balls())
 					{
 						if (key[ALLEGRO_KEY_SPACE])
 						{
 							SPSMBall->reset();
-							SPSPlayer->reset_position_and_acceleration();
-							SPSPlayer->remove_a_remaining_ball();
+							SPSMPlayer->reset_position_and_acceleration();
+							SPSMPlayer->remove_a_remaining_ball();
 							is_ball_in_game = true;
 						}
 					}
@@ -119,7 +120,7 @@ int main(int argn, char** argv)
 					if (key[ALLEGRO_KEY_ENTER])
 					{
 						scene = 1;
-						SPSPlayer->reset();
+						SPSMPlayer->reset();
 						UPBlockController->initialize_blocks();
 					}
 				}
@@ -152,15 +153,15 @@ int main(int argn, char** argv)
 				UPSLeftLimit->draw();
 				UPSRightLimit->draw();
 				// draw score
-				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::SCORE_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSPlayer->get_score());
+				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::SCORE_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSMPlayer->get_score());
 				// draw remaining balls of player
-				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::REMAINING_BALLS_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSPlayer->get_remaining_balls());
+				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::REMAINING_BALLS_POSITION_X, -5, ALLEGRO_ALIGN_CENTER, "%u", SPSMPlayer->get_remaining_balls());
 				if (is_ball_in_game)
 				{
 					SPSMBall->draw();
 				}
 				UPBlockController->draw_blocks();
-				SPSPlayer->draw();
+				SPSMPlayer->draw();
 			}
 			else if (scene == 0)
 			{
@@ -169,7 +170,7 @@ int main(int argn, char** argv)
 			}
 			else if (scene == 3)
 			{
-				al_draw_textf(SPFont_36->getFont(), *SPACDarkGrey, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT, ALLEGRO_ALIGN_CENTER, "Your score: %u", SPSPlayer->get_score());
+				al_draw_textf(SPFont_36->getFont(), *SPACDarkGrey, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT, ALLEGRO_ALIGN_CENTER, "Your score: %u", SPSMPlayer->get_score());
 				al_draw_textf(SPFont_30->getFont(), *SPACDarkGrey, Constant::HALF_SCREEN_WIDTH, Constant::HALF_SCREEN_HEIGHT + al_get_font_line_height(SPFont_36->getFont()), ALLEGRO_ALIGN_CENTER, "Press Enter to play again");
 			}
 			al_flip_display();

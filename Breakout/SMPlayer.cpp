@@ -56,9 +56,20 @@ void SMPlayer::reset()
 	this->score = std::move(0);
 	this->remaining_balls = Constant::QUANTITY_OF_BALLS;
 	this->reset_position_and_acceleration();
+	this->width_has_been_reduced = std::move(false);
+	this->width += (this->width / 4);
 }
 
 void SMPlayer::reset_position_and_acceleration()
 {
 	SMovable::reset();
+}
+
+void SMPlayer::reduce_width()
+{
+	if (!this->width_has_been_reduced && this->score >= 140)
+	{
+		this->width -= (this->width / 4);
+		this->width_has_been_reduced = true;
+	}
 }

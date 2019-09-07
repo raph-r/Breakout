@@ -12,6 +12,7 @@ class SMPlayer : public SMovable
 private:
 	unsigned int score = 0;
 	unsigned int remaining_balls = 0;
+	bool width_has_been_reduced = false;
 
 	public:
 		/**
@@ -106,5 +107,14 @@ private:
 		 * Reverte os atributos relacionados a posicao e aceleracao
 		*/
 		void reset_position_and_acceleration();
+
+		/**
+		 * <EN>
+		 * Reduce the width of SMPlayer, if SMPlayer >= 200 and if not has not been reduced
+		 *
+		 * <PT-Br>
+		 * Reduz a largura de SMPlayer, se SMPlayer::score >= 200 e se nao houve reducao
+		*/
+		void reduce_width();
 };
 
